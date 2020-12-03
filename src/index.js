@@ -1,3 +1,36 @@
+import axios from "axios";
+var loading = document.getElementById("loading");
+var mensaje = document.getElementById("mensaje");
+var botonGet = document.getElementById("jason_get");
+
+botonGet.addEventListener("click", function () {
+  //obtener una mascota por id
+  axios
+    .get("https://petstore.swagger.io/v2/pet/1050", {
+      responseType: "json"
+    })
+
+    .then(function (res) {
+      //cuando obtenemos respuesta satisfactoria
+      //la peticion se proceso de forma correcta
+      if (res.status == 200) {
+        alert("Se obtuvieron los datos " + res.data.name);
+      }
+      console.log(res);
+    })
+
+    .catch(function (err) {
+      //cuando ocurre algun error
+      console.log(err);
+    })
+    .finally(function (property) {
+      //esta peticion siempre se ejecuta al final del procesamiento
+      console.log("finally");
+      loading.style.display = "none";
+    });
+});
+
+/*
 var mascotas = [
   { tipo: "perro", nombre: "kukis", active: false, dueño: "hernan" },
   { tipo: "gato", nombre: "michi", active: true, dueño: "deisy" },
@@ -12,6 +45,8 @@ var mascotas = [
   { tipo: "gato", nombre: "blanco", active: true, dueño: "jose" },
   { tipo: "mono", nombre: "chango", active: false, dueño: "angel" }
 ];
+*/
+
 /*
 let buscarGato = _.findIndex(mascotas, function (o) {
   return o.nombre == "mich" && o.active;
